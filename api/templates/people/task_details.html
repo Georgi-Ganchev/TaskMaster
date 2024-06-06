@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Person's Tasks</title>
+    <title>Task Details</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,7 +12,7 @@
             color: #333;
         }
         ul {
-            list-style-type: none;
+            list-style-type: none;  
             padding: 0;
         }
         li {
@@ -29,9 +29,9 @@
     </style>
 </head>
 <body>
-    <h1>Latest Tasks</h1>
+    <h1>Task Details</h1>
     <ul>
-        {% for task in latest_tasks_list %}
+        {% for task in task %}
         <li>
             <strong>{{ task.task_name }} from {{ task.task_giver }}</strong>
             <div class="date">{{ task.date }}</div>

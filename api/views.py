@@ -1,16 +1,16 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
 from .models import Task
-from django.template import loader
 
 
 # Create your views here.
 
-def person_tasks(request, person_id):
+def person_tasks(request):
     latest_tasks_list = Task.objects.order_by("-date")
-    template = loader.get_template("people/person_tasks.html")
     context = {
         "latest_tasks_list": latest_tasks_list,
     }
-    output = ', '.join([q.task_name for q in latest_tasks_list])
-    return HttpResponse(template.render(context, request))
+    return render(request, "people/person_tasks.html", context)
+
+def task_details(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    return render(request, "people/task_details.html", {"task:": task})
