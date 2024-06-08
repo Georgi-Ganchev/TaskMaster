@@ -23,7 +23,7 @@
             border-radius: 4px;
         }
         .date {
-            color: #888;
+            color: #6b6b6b;
             font-size: 0.9em;
         }
     </style>
@@ -31,14 +31,10 @@
 <body>
     <h1>Task Details</h1>
     <ul>
-        {% for task in task %}
         <li>
-            <strong>{{ task.task_name }} from {{ task.task_giver }}</strong>
+            <strong>{{ task_info }}</strong>
             <div class="date">{{ task.date }}</div>
         </li>
-        {% empty %}
-        <li>No tasks are available.</li>
-        {% endfor %}
     </ul>
 </body>
 </html>

@@ -1,11 +1,12 @@
-from django.db import models
+from django.db import models, models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Person(models.Model):
-    name = models.CharField("User Name", max_length=20, blank=True)
+    name = models.CharField(User, "User Name", max_length=20, blank=True)
 
 class Task(models.Model):
-    user = models.ForeignKey(Person, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
     task_name = models.CharField("Task Name", max_length=20)
     task_giver = models.CharField("Given by:", max_length=20)
     date = models.DateField("Date Published")
