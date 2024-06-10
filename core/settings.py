@@ -100,6 +100,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'tasks'
+# LOGOUT_URL = 'sign_out'
+# LOGOUT_REDIRECT_URL = 'sign_in'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
