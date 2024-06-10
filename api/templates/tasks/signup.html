@@ -1,0 +1,28 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}Tasks | Sign Up{% endblock %}
+
+{% block body %}
+<div class="sign-up-container">
+    <form method="POST" action="{% url 'signup' %}">
+        {% csrf_token %}
+        <h2>Sign Up</h2>
+        <div class="input-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="input-group">
+            <label for="password1">Password:</label>
+            <input type="password1" id="password1" name="password1" required>
+        </div>
+        <div class="input-group">
+            <label for="password2">Repeat Password:</label>
+            <input type="password2" id="password2" name="password2" required>
+        </div>
+        <button type="submit">Sign Up</button>
+        {% if error_message %}
+            <p class="error">{{ error_message }}</p>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

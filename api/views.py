@@ -3,10 +3,22 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
+from .forms import SignupForm
 from .models import Task
 
 
 # Create your views here.
+
+def signup_form(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+            form = SignupForm()
+    return render(request, 'signup.html', {'form': form})
+
 
 @login_required(redirect_field_name='login')
 def person_tasks(request):
@@ -36,3 +48,6 @@ def login_auth(request):
     
 def success_page(request):
     return render(request, "tasks/success.html")
+
+def home_page(request):
+    return render(request, "tasks/home_screen.html")
