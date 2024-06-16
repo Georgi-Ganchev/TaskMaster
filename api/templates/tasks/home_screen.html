@@ -1,13 +1,23 @@
 {% extends 'tasks/base.html' %}
 
-{% block title %}Tasks | Home Screen{% endblock %}
+{% block title %}Tasks | Login{% endblock %}
 
 {% block body %}
-<div class="home-container">
-    <h1>Welcome to Task Manager</h1>
-    <div class="buttons">
-        <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'signup' %}">Signup</a>
-    </div>
-</div>
+
+<h1>Latest Tasks</h1>
+<ul>
+    {% for task in latest_tasks_list %}
+    <li>
+        <strong>{{ task.task_name }} from {{ task.task_giver }}</strong>
+        <div class="date">{{ task.date }}</div>
+    </li>
+    {% empty %}
+    <li>No tasks are available.</li>
+    {% endfor %}
+</ul>
+
+<form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+
 {% endblock %}
