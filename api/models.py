@@ -6,10 +6,10 @@ class Person(models.Model):
     name = models.CharField(User, "User Name", max_length=20, blank=True)
 
 class Task(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     task_name = models.CharField("Task Name", max_length=20)
     task_giver = models.CharField("Given by:", max_length=20)
-    date = models.DateField("Date Published")
+    date = models.DateField("Date Published", auto_now_add=True)
     completed = models.BooleanField("Completed", default=False)
 
     def __str__(self):

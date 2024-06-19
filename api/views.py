@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .forms import SignupForm
+from .forms import SignupForm, TaskForm
 from .models import Task
 
 
@@ -56,7 +56,21 @@ def login_auth(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
+
+@login_required(redirect_field_name="login")
+def task_creation(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.user = request.user
+            task.save()
+            return redirect('home')
+    else:
+        form = TaskForm()
+    return render(request, 'tasks/task_addition.html', {'form': form})
     
+        
 def success_page(request):
     return render(request, "tasks/success.html")
 

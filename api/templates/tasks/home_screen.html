@@ -19,5 +19,10 @@
 <form method="POST" action="{% url 'logout' %}">
     {% csrf_token %}
     <button type="submit">Logout</button>
+</form>
 
+<form method="POST" action="{% url 'new_task' %}">
+    {% csrf_token %}
+    <button type="submit">New Task</button>
+</form>
 {% endblock %}
