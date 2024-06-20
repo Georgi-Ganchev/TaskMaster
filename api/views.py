@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -15,7 +15,7 @@ def signup_form(request):
         if form.is_valid():
             user = form.save()
             login(request,user)
-            return render(request, "tasks/people/person_tasks.html")
+            return render(request, "tasks/person_tasks.html")
     else:
             form = SignupForm()
     return render(request, 'tasks/signup.html', {'form': form})
@@ -23,23 +23,22 @@ def signup_form(request):
 @login_required(redirect_field_name='login')
 def home_page(request):
     user_tasks_list = Task.objects.order_by("-date").filter(user=request.user)
+    ongoing_tasks = user_tasks_list.filter(completed=False)
+    done_tasks = user_tasks_list.filter(completed=True)
     context = {
-        "latest_tasks_list": user_tasks_list,
+        "ongoing_tasks_list": ongoing_tasks,
+        "done_tasks_list": done_tasks,
     }
     return render(request, "tasks/home_screen.html", context)
 
-# @login_required(redirect_field_name='login')
-# def person_tasks(request):
-#     latest_tasks_list = Task.objects.order_by("-date").filter(user=request.user)
-#     context = {
-#         "latest_tasks_list": latest_tasks_list,
-    # }
-    # return render(request, "tasks/people/person_tasks.html", context)
 
+@login_required(redirect_field_name='login')
 def task_details(request, task_id):
-    task_info = Task.objects.get(pk=task_id)
-    return render(request, "tasks/people/task_details.html", {"task_info" : task_info })
+    task_info = get_object_or_404(Task, pk=task_id)
+    return render(request, "tasks/task_details.html", {"task_info" : task_info })
 
+
+@login_required(redirect_field_name='login')
 def login_auth(request):
     if request.method == 'POST':
         username = request.POST["username"]
@@ -70,7 +69,9 @@ def task_creation(request):
         form = TaskForm()
     return render(request, 'tasks/task_addition.html', {'form': form})
     
-        
+@login_required(redirect_field_name='login')
+def edit_task(request, task_id):
+          
 def success_page(request):
     return render(request, "tasks/success.html")
 

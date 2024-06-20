@@ -2,8 +2,6 @@ from django.db import models, models
 from django.contrib.auth.models import User
 
 # Create your models here.
-class Person(models.Model):
-    name = models.CharField(User, "User Name", max_length=20, blank=True)
 
 class Task(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)

@@ -4,11 +4,23 @@
 
 {% block body %}
 
-<h1>Latest Tasks</h1>
+<h1>Ongoing Tasks</h1>
 <ul>
-    {% for task in latest_tasks_list %}
+    {% for task in ongoing_tasks_list %}
     <li>
-        <strong>{{ task.task_name }} from {{ task.task_giver }}</strong>
+        <strong><a href="{% url 'details' task.id %}">{{ task.task_name }}</a></strong>
+        <div class="date">{{ task.date }}</div>
+    </li>
+    {% empty %}
+    <li>No tasks are available.</li>
+    {% endfor %}
+</ul>
+
+<h1>Done Tasks</h1>
+<ul>
+    {% for task in done_tasks_list %}
+    <li>
+        <strong><a href="{% url 'details' task.id %}">{{ task.task_name }}</a></strong>
         <div class="date">{{ task.date }}</div>
     </li>
     {% empty %}
