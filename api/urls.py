@@ -9,5 +9,6 @@ urlpatterns = [
     path("login/success/", views.success_page, name='success'),
     path("welcome/", views.welcome_page, name="welcome_page"),
     path('logout/', views.logout_view, name='logout'),
-    path("new_task/", views.task_creation, name='new_task')
+    path("new_task/", views.task_creation, name='new_task'),
+    path("complete/<int:task_id>/", views.complete_task, name='complete')
     ]

@@ -34,11 +34,12 @@ def home_page(request):
 
 @login_required(redirect_field_name='login')
 def task_details(request, task_id):
+    task_id = int(task_id)
     task_info = get_object_or_404(Task, pk=task_id)
     return render(request, "tasks/task_details.html", {"task_info" : task_info })
 
 
-@login_required(redirect_field_name='login')
+#@login_required(redirect_field_name='login')
 def login_auth(request):
     if request.method == 'POST':
         username = request.POST["username"]
@@ -70,8 +71,12 @@ def task_creation(request):
     return render(request, 'tasks/task_addition.html', {'form': form})
     
 @login_required(redirect_field_name='login')
-def edit_task(request, task_id):
-          
+def complete_task(request, task_id):
+    current_task = get_object_or_404(Task, id=task_id)
+    current_task.completed = True
+    current_task.save()
+    return redirect('home')
+
 def success_page(request):
     return render(request, "tasks/success.html")
 

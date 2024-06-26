@@ -7,6 +7,10 @@
 <h1>{{ task_info.name }}</h1>
 <ul>
     <p>Given By: {{ task_info.task_giver }} on {{ task_info.date }}</p>
+    <form method="POST" action="{% url 'complete' task_info.id %}">
+        {% csrf_token %}
+        <button type="submit">Complete Task</button>
+    </form>
     <a href="{% url 'home' %}">Back to list</a>
 </ul>
 
