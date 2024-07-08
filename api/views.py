@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import Group
+from django.contrib import messages
 from .forms import SignupForm, TaskForm
 from .models import Task, CustomUser
 
@@ -14,17 +16,33 @@ def signup_form(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
+
+            role = form.cleaned_data['user_type']
+            if role == '0':
+                student_group, created = Group.objects.get_or_create(name='Student Group')
+                student_group.user_set.add(user)
+                messages.success(request, 'Student account created successfully!')
+            else:
+                teacher_group, created = Group.objects.get_or_create(name='Teachers waiting list')
+                teacher_group.user_set.add(user)
+                messages.info(request, 'Teacher account created. Please contact admin for group assignment.')
+
+
             login(request,user)
-            return render(request, "tasks/person_tasks.html")
+            return redirect('home')
     else:
             form = SignupForm()
+
     return render(request, 'tasks/signup.html', {'form': form})
 
 @login_required(redirect_field_name='login')
 def home_page(request):
     if request.user.user_type == '1':
-        students_list = CustomUser.objects.order_by("-id").filter(user_type = '0')
-        return render(request, "tasks/teacher_home.html", {'students_list' : students_list} )
+        if request.user.groups.filter(name='Teacher Group').exists():
+            students_list = CustomUser.objects.order_by("-id").filter(user_type = '0')
+            return render(request, "tasks/teacher_home.html", {'students_list' : students_list} )
+        else:
+            return render(request, "tasks/teacher_waiting_list.html")
     
     else:
         user_tasks_list = Task.objects.order_by("-date").filter(user=request.user)
@@ -80,9 +98,6 @@ def complete_task(request, task_id):
     current_task.completed = True
     current_task.save()
     return redirect('home')
-
-def success_page(request):
-    return render(request, "tasks/success.html")
 
 def welcome_page(request):
     return render(request, "tasks/welcome_screen.html")

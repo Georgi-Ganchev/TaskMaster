@@ -21,4 +21,12 @@
         {% endif %}
     </form>
 </div>
+
+<div class="sign-up-container">
+    <h5> Not an user? Sign Up!</h5>
+    <form action="{% url 'signup' %}">
+        {% csrf_token %}
+        <button type="submit">Sign up</button>
+    </form>
+</div>
 {% endblock %}
