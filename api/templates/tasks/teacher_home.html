@@ -1,0 +1,28 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}Teacher | Home{% endblock %}
+
+{% block body %}
+
+<h1>Students</h1>
+<table>
+    <tr>
+        <th>Faculty number</th>
+        <th>Username</th>
+        <th>Email</th>
+
+    </tr>
+    {% for student in students_list %}
+    <tr>
+        <td>{{ student.id }}</td>
+        <td>{{ student.username }}</td>
+        <td>{{ student.email }}</td>
+      </tr>
+    {% endfor %}
+</table>
+
+<form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+{% endblock %}

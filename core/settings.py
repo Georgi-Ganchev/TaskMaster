@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+AUTH_USER_MODEL = 'api.CustomUser'
 
 INSTALLED_APPS = [
     'api.apps.ApiConfig',
@@ -100,8 +101,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'tasks'
+LOGIN_REDIRECT_URL = 'home'
 # LOGOUT_URL = 'sign_out'
 # LOGOUT_REDIRECT_URL = 'sign_in'
 
