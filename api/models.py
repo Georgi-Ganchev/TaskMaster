@@ -28,6 +28,9 @@ class CustomUser(AbstractUser):
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
     date_joined = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(blank=True, null=True)
+    name = models.CharField(max_length=255)
+    fname = models.CharField(max_length=255)
+
     
 
 class Task(models.Model):

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from django.contrib import messages
@@ -80,6 +80,7 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("login"))
 
 @login_required(redirect_field_name="login")
+@permission_required('api.add_task', raise_exception=True)
 def task_creation(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
@@ -93,6 +94,7 @@ def task_creation(request):
     return render(request, 'tasks/task_addition.html', {'form': form})
     
 @login_required(redirect_field_name='login')
+@permission_required('api.change_task', raise_exception=True)
 def complete_task(request, task_id):
     current_task = get_object_or_404(Task, id=task_id)
     current_task.completed = True
@@ -101,3 +103,10 @@ def complete_task(request, task_id):
 
 def welcome_page(request):
     return render(request, "tasks/welcome_screen.html")
+
+@login_required(redirect_field_name='login')
+@permission_required('api.change_task', raise_exception=True)
+def student_details(request, student_id):
+    student = get_object_or_404(CustomUser, id=student_id)
+    tasks = Task.objects.filter(user=student)
+    return render(request, 'tasks/student_info.html', {'student': student, 'tasks': tasks})

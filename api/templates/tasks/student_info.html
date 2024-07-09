@@ -1,0 +1,40 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}Tasks | Login{% endblock %}
+
+{% block body %}
+
+<h3>Student Information</h3>
+<ul>
+    <li>
+        Name: {{ student.name }}
+    </li>
+    <li>
+        Family Name: {{ student.fname }}
+    </li>
+    <li>
+        Email: {{ student.email }}
+    </li>
+    <li>
+        Faculty Number: {{ student.id }}
+    </li>
+</ul>
+
+<h3>Student Tasks</h3>
+<ul>
+    {% for task in tasks %}
+    <li>
+        <strong><a href="{% url 'details' task.id %}">{{ task.task_name }}</a></strong>
+        <div class="date">{{ task.date }}</div>
+    </li>
+    {% empty %}
+    <li>No tasks are available.</li>
+    {% endfor %}
+</ul>
+
+<form method="POST" action="{% url 'new_task' %}">
+    {% csrf_token %}
+    <button type="submit">New Task</button>
+</form>
+
+{% endblock %}

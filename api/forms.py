@@ -17,7 +17,7 @@ class SignupForm(UserCreationForm):
     )
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'name', 'fname']
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -29,5 +29,5 @@ class SignupForm(UserCreationForm):
 class TaskForm(ModelForm):
     class Meta:
         model = Task
-        fields = ['task_name', 'task_giver', 'completed']
+        fields = ['task_name', 'completed']
         

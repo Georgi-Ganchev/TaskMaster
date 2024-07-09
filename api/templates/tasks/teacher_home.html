@@ -17,6 +17,10 @@
         <td>{{ student.id }}</td>
         <td>{{ student.username }}</td>
         <td>{{ student.email }}</td>
+        <td><form method="POST" action="{% url 'student_details' student.id %}">
+            {% csrf_token %}
+            <button type="submit">Select</button>
+        </form></td>
       </tr>
     {% endfor %}
 </table>
@@ -26,3 +30,4 @@
     <button type="submit">Logout</button>
 </form>
 {% endblock %}
+
