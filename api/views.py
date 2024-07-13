@@ -81,18 +81,22 @@ def logout_view(request):
 
 @login_required(redirect_field_name="login")
 @permission_required('api.add_task', raise_exception=True)
-def task_creation(request):
+def task_creation(request, student_id):
+    student = get_object_or_404(CustomUser, pk=student_id)
+
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
             task = form.save(commit=False)
-            task.user = request.user
+            task.task_giver=request.user
+            task.user=student
             task.save()
             return redirect('home')
     else:
         form = TaskForm()
-    return render(request, 'tasks/task_addition.html', {'form': form})
-    
+    #return render(request, 'tasks/teacher_home.html', {'form': form})
+    return HttpResponseRedirect(reverse("student_details"))
+
 @login_required(redirect_field_name='login')
 @permission_required('api.change_task', raise_exception=True)
 def complete_task(request, task_id):

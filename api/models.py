@@ -34,9 +34,9 @@ class CustomUser(AbstractUser):
     
 
 class Task(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser,related_name='Student', on_delete=models.CASCADE)
     task_name = models.CharField("Task Name", max_length=20)
-    task_giver = models.CharField("Given by:", max_length=20)
+    task_giver = models.ForeignKey(CustomUser,related_name='Teacher', on_delete=models.CASCADE)
     date = models.DateField("Date Published", auto_now_add=True)
     completed = models.BooleanField("Completed", default=False)
 
