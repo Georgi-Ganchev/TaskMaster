@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from django import forms
 from .models import Task, CustomUser
 
+# Custom form for new users, with overridden save method
 class SignupForm(UserCreationForm):
     CHOICES = [
         ('1', 'Teacher'),
@@ -26,6 +27,7 @@ class SignupForm(UserCreationForm):
             user.save()
         return user
 
+# Form for adding new tasks
 class TaskForm(ModelForm):
     class Meta:
         model = Task

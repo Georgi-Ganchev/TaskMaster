@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} TaskMaster {% endblock %}</title>
-    <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
@@ -15,19 +14,19 @@
             font-family: 'Lobster', cursive;
         }
         .gradient-ongoing {
-            background: linear-gradient(to right, #99f2c8, #8fd9a8); /* Adjust colors as needed */
+            background: linear-gradient(to right, #99f2c8, #8fd9a8);
             padding: 20px;
             border-radius: 10px;
         }
         .gradient-done {
-            background: linear-gradient(to left, #ffafbd, #ffc3a0); /* Adjust colors as needed */
+            background: linear-gradient(to left, #ffafbd, #ffc3a0); 
             padding: 20px;
             border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
+    <!-- NavBar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'welcome_page' %}">TaskMaster</a>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -50,8 +49,6 @@
     <div class="container mt-4">
         {% block body %}{% endblock %}
     </div>
-
-    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

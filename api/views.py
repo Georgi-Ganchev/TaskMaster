@@ -9,8 +9,8 @@ from .forms import SignupForm, TaskForm
 from .models import Task, CustomUser
 
 
-# Create your views here.
-
+# 0 -> Student
+# 1 -> Teacher
 def signup_form(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -34,6 +34,7 @@ def signup_form(request):
             form = SignupForm()
 
     return render(request, 'tasks/signup.html', {'form': form})
+
 
 @login_required(redirect_field_name='login')
 def home_page(request):
@@ -75,6 +76,7 @@ def login_auth(request):
     else:
         return render(request, 'tasks/login.html')
     
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
@@ -96,6 +98,7 @@ def task_creation(request, student_id):
         form = TaskForm()
     return render(request, 'tasks/task_addition.html', {'form': form, 'student': student})
 
+
 @login_required(redirect_field_name='login')
 @permission_required('api.change_task', raise_exception=True)
 def complete_task(request, task_id):
@@ -106,6 +109,7 @@ def complete_task(request, task_id):
 
 def welcome_page(request):
     return render(request, "tasks/welcome_screen.html")
+
 
 @login_required(redirect_field_name='login')
 @permission_required('api.change_task', raise_exception=True)
