@@ -7,6 +7,8 @@ from django.contrib.auth.models import Group
 from django.contrib import messages
 from .forms import SignupForm, TaskForm
 from .models import Task, CustomUser
+from django.utils import timezone
+import datetime
 
 
 # 0 -> Student
@@ -70,6 +72,7 @@ def login_auth(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            delete_old_completed_tasks()
             return HttpResponseRedirect(reverse("home"))
         else:
             return render(request, 'tasks/login.html', {'error_message': 'Invalid username or password.'})
@@ -131,3 +134,10 @@ def edit_task(request, task_id):
         form = TaskForm(instance=task)
 
     return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
+
+
+def delete_old_completed_tasks():
+    now = timezone.now()
+    one_month_ago = now - datetime.timedelta(days=30)
+    tasks_to_delete = Task.objects.filter(completed=True, date__lt=one_month_ago)
+    tasks_to_delete.delete()
