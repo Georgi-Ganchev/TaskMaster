@@ -10,5 +10,7 @@ urlpatterns = [
     path("welcome/", views.welcome_page, name="welcome_page"),
     path('logout/', views.logout_view, name='logout'),
     path("new_task/<int:student_id>/", views.task_creation, name='new_task'),
-    path("complete/<int:task_id>/", views.complete_task, name='complete')
+    path("complete/<int:task_id>/", views.complete_task, name='complete'),
+    path('edit/<int:task_id>/', views.edit_task, name='edit_task')
+
     ]

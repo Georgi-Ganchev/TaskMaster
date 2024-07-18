@@ -15,7 +15,11 @@
                 {% csrf_token %}
                 <button type="submit" class="btn btn-success">Complete Task</button>
             </form>
-            <a href="{% url 'home' %}" class="btn btn-secondary ml-2">Back to List</a>
+            <form method="POST" action="{% url 'edit_task' task_info.id %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning">Edit Task</button>
+            </form>
+            <a href="{% url 'home' %}" class="btn btn-secondary" style="display: inline;">Back to List</a>
         </div>
     </div>
 </div>
