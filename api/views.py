@@ -94,8 +94,7 @@ def task_creation(request, student_id):
             return redirect('home')
     else:
         form = TaskForm()
-    #return render(request, 'tasks/teacher_home.html', {'form': form})
-    return HttpResponseRedirect(reverse("student_details"))
+    return render(request, 'tasks/task_addition.html', {'form': form, 'student': student})
 
 @login_required(redirect_field_name='login')
 @permission_required('api.change_task', raise_exception=True)

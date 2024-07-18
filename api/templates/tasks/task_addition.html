@@ -4,10 +4,11 @@
 
 {% block body %}
 <div class="new_task-container">
-    <form method="POST" action="{% url 'new_task' %}">
+    <form method="POST" action="{% url 'new_task' student.id %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Add Task</button>
     </form>
+    <button onclick="window.history.back()">Back</button>
 </div>
 {% endblock %}
