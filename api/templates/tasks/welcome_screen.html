@@ -1,13 +1,28 @@
 {% extends 'tasks/base.html' %}
+{% load static %}
 
 {% block title %}Tasks | Welcome Screen{% endblock %}
 
 {% block body %}
-<div class="home-container">
-    <h1>Welcome to Task Manager</h1>
-    <div class="buttons">
-        <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'signup' %}">Signup</a>
+<div class="home-container text-center">
+    <h1 class="custom-font">Welcome to Task Manager</h1>
+    <div class="card-deck mt-4">
+        <div class="card">
+            <img src="{% static 'images/login.jpg' %}" class="card-img-top" alt="Login Image">
+            <div class="card-body">
+                <h5 class="card-title">Login</h5>
+                <p class="card-text">Welcome back! Log in to manage your tasks efficiently.</p>
+                <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'images/register.jpeg' %}" class="card-img-top" alt="Signup Image">
+            <div class="card-body">
+                <h5 class="card-title">Signup</h5>
+                <p class="card-text">Join TaskMaster today and take control of your tasks effortlessly!</p>
+                <a href="{% url 'signup' %}" class="btn btn-primary">Signup</a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
