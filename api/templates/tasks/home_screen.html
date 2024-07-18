@@ -3,34 +3,34 @@
 {% block title %}Tasks | Login{% endblock %}
 
 {% block body %}
-
-<h1>Ongoing Tasks</h1>
-<ul>
-    {% for task in ongoing_tasks_list %}
-    <li>
-        <strong><a href="{% url 'details' task.id %}">{{ task.task_name }}</a></strong>
-        <div class="date">{{ task.date }}</div>
-    </li>
-    {% empty %}
-    <li>No tasks are available.</li>
-    {% endfor %}
-</ul>
-
-<h1>Done Tasks</h1>
-<ul>
-    {% for task in done_tasks_list %}
-    <li>
-        <strong><a href="{% url 'details' task.id %}">{{ task.task_name }}</a></strong>
-        <div class="date">{{ task.date }}</div>
-    </li>
-    {% empty %}
-    <li>No tasks are available.</li>
-    {% endfor %}
-</ul>
-
-<form method="POST" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
-
+<div class="row">
+    <!-- Ongoing Tasks Column -->
+    <div class="col-md-6 text-left gradient-ongoing">
+        <h1 class="text-white">Ongoing Tasks</h1>
+        <ul class="list-group">
+            {% for task in ongoing_tasks_list %}
+            <li class="list-group-item">
+                <strong><a href="{% url 'details' task.id %}" class="text-dark">{{ task.task_name }}</a></strong>
+                <div class="date">{{ task.date }}</div>
+            </li>
+            {% empty %}
+            <li class="list-group-item">No ongoing tasks.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- Done Tasks Column -->
+    <div class="col-md-6 text-right gradient-done">
+        <h1 class="text-white">Done Tasks</h1>
+        <ul class="list-group">
+            {% for task in done_tasks_list %}
+            <li class="list-group-item">
+                <strong><a href="{% url 'details' task.id %}" class="text-dark">{{ task.task_name }}</a></strong>
+                <div class="date">{{ task.date }}</div>
+            </li>
+            {% empty %}
+            <li class="list-group-item">No completed tasks.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock %}

@@ -4,30 +4,26 @@
 
 {% block body %}
 
-<h1>Students</h1>
-<table>
-    <tr>
-        <th>Faculty number</th>
-        <th>Username</th>
-        <th>Email</th>
+<div class="container">
+    <h1>Students</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Faculty number</th>
+                <th>Username</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students_list %}
+            <tr style="cursor: pointer;" onclick="window.location='{% url 'student_details' student.id %}'">
+                <td>{{ student.id }}</td>
+                <td>{{ student.username }}</td>
+                <td>{{ student.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-    </tr>
-    {% for student in students_list %}
-    <tr>
-        <td>{{ student.id }}</td>
-        <td>{{ student.username }}</td>
-        <td>{{ student.email }}</td>
-        <td><form method="POST" action="{% url 'student_details' student.id %}">
-            {% csrf_token %}
-            <button type="submit">Select</button>
-        </form></td>
-      </tr>
-    {% endfor %}
-</table>
-
-<form method="POST" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
 {% endblock %}
-

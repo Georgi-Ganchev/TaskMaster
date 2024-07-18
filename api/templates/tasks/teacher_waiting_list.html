@@ -3,16 +3,14 @@
 {% block title %}Tasks | Login{% endblock %}
 
 {% block body %}
-<h1>
-    You are not approved from admin!
-</h1>
-<h2>
-    Please contact admin for giving you teacher's permissions.
-</h2>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="mt-5">You are not approved by the admin!</h1>
+            <h2 class="mt-4">Please contact the admin to grant you teacher's permissions.</h2>
 
-<form method="POST" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
-
+            <a href="mailto:ganchev02@gmail.com?subject=Request for Teacher's Permissions&body=Dear Admin,%0D%0A%0D%0AI hope this message finds you well. I am writing to request your approval to grant me teacher's permissions.%0D%0A%0D%0AThank you.%0D%0A%0D%0ARegards,%0D%0A[Your Name]" class="btn btn-primary mt-4">Contact Admin</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -3,17 +3,32 @@
 {% block title %}{{ task_info.user }}'s tasks | Edit{% endblock %}
 
 {% block body %}
+<div class="row">
+    <!-- Task Details Column -->
+    <div class="col-md-12">
+        <h1>{{ task_info.name }}</h1>
+        <div class="mb-3">
+            <strong>Given By:</strong> {{ task_info.task_giver }} on {{ task_info.date }}
+        </div>
+        <div class="mb-3">
+            <form method="POST" action="{% url 'complete' task_info.id %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Complete Task</button>
+            </form>
+            <a href="{% url 'home' %}" class="btn btn-secondary ml-2">Back to List</a>
+        </div>
+    </div>
+</div>
 
-<h1>{{ task_info.name }}</h1>
-<ul>
-    <p>Given By: {{ task_info.task_giver }} on {{ task_info.date }}</p>
-    <form method="POST" action="{% url 'complete' task_info.id %}">
-        {% csrf_token %}
-        <button type="submit">Complete Task</button>
-    </form>
-    <a href="{% url 'home' %}">Back to list</a>
-</ul>
-<button onclick="window.history.back()">Back</button>
-
+<style>
+    /* Custom CSS for larger text */
+    h1, strong {
+        font-size: 24px;
+    }
+    /* Remove default list styling */
+    div ul {
+        list-style-type: none;
+    }
+</style>
 
 {% endblock %}

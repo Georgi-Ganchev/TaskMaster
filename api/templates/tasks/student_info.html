@@ -1,42 +1,55 @@
 {% extends 'tasks/base.html' %}
 
-{% block title %}Tasks | Login{% endblock %}
+{% block title %}Student Details{% endblock %}
 
 {% block body %}
 
-<h3>Student Information</h3>
-<ul>
-    <li>
-        Name: {{ student.name }}
-    </li>
-    <li>
-        Family Name: {{ student.fname }}
-    </li>
-    <li>
-        Email: {{ student.email }}
-    </li>
-    <li>
-        Faculty Number: {{ student.id }}
-    </li>
-</ul>
+<div class="container">
+    <div class="row">
+        <!-- Left Column: Tasks -->
+        <div class="col-md-6 order-md-1">
+            <h3>Student Tasks</h3>
+            <ul>
+                {% for task in tasks %}
+                <li>
+                    <strong><a href="{% url 'details' task.id %}">{{ task.task_name }}</a></strong>
+                    <div class="date">{{ task.date }}</div>
+                </li>
+                {% empty %}
+                <li>No tasks are available.</li>
+                {% endfor %}
+            </ul>
+            <form method="POST" action="{% url 'new_task' student.id %}">
+                {% csrf_token %}
+            </form>
+        </div>
+        <!-- Right Column: Student Information -->
+        <div class="col-md-6 order-md-2">
+            <h3>Student Information</h3>
+            <ul>
+                <li>
+                    <strong>Name:</strong> {{ student.name }}
+                </li>
+                <li>
+                    <strong>Family Name:</strong> {{ student.fname }}
+                </li>
+                <li>
+                    <strong>Email:</strong> {{ student.email }}
+                </li>
+                <li>
+                    <strong>Faculty Number:</strong> {{ student.id }}
+                </li>
+            </ul>
+        </div>
+    </div>
 
-<h3>Student Tasks</h3>
-<ul>
-    {% for task in tasks %}
-    <li>
-        <strong><a href="{% url 'details' task.id %}">{{ task.task_name }}</a></strong>
-        <div class="date">{{ task.date }}</div>
-    </li>
-    {% empty %}
-    <li>No tasks are available.</li>
-    {% endfor %}
-</ul>
-
-<form method="POST" action="{% url 'new_task' student.id %}">
-    {% csrf_token %}
-    <button type="submit">New Task</button>
-</form>
-
-<button onclick="window.history.back()">Back</button>
+    <!-- Back and New Task Buttons centered at the bottom -->
+    <div class="row mt-3">
+        <div class="col-md-12 text-center">
+            <button onclick="document.location.href='{% url 'new_task' student.id %}'" class="btn btn-primary">New Task</button>
+            <button onclick="window.history.back()" class="btn btn-secondary mr-2">Back</button>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

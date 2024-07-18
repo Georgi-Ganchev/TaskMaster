@@ -3,12 +3,31 @@
 {% block title %}Tasks | New Task{% endblock %}
 
 {% block body %}
-<div class="new_task-container">
-    <form method="POST" action="{% url 'new_task' student.id %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Task</button>
-    </form>
-    <button onclick="window.history.back()">Back</button>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="new_task-container">
+                <form method="POST" action="{% url 'new_task' student.id %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary mr-2">Add Task</button>
+                        <button type="button" onclick="window.history.back()" class="btn btn-secondary">Back</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    .new_task-container {
+        text-align: center;
+        margin-top: 50px; /* Adjust top margin as needed */
+    }
+</style>
+
 {% endblock %}

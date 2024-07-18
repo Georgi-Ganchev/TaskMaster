@@ -5,22 +5,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} Tasks {% endblock %}</title>
+    <title>{% block title %} TaskMaster {% endblock %}</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        .custom-font {
+            font-family: 'Lobster', cursive;
+        }
+        .gradient-ongoing {
+            background: linear-gradient(to right, #99f2c8, #8fd9a8); /* Adjust colors as needed */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .gradient-done {
+            background: linear-gradient(to left, #ffafbd, #ffc3a0); /* Adjust colors as needed */
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Task Manager</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <a class="navbar-brand" href="{% url 'welcome_page' %}">TaskMaster</a>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <span class="navbar-text mr-3">Welcome, {{ user.username }}</span>
                 </li>
+                <li class="nav-item">
+                    <form method="POST" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger">Logout</button>
+                    </form>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </nav>

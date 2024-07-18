@@ -3,30 +3,41 @@
 {% block title %}Tasks | Login{% endblock %}
 
 {% block body %}
-<div class="login-container">
-    <form method="POST" action="{% url 'login' %}">
-        {% csrf_token %}
-        <h2>Login</h2>
-        <div class="input-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+<div class="row">
+    <!-- Login Form Column -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <h2>Login</h2>
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    {% if error_message %}
+                        <p class="text-danger mt-2">{{ error_message }}</p>
+                    {% endif %}
+                </form>
+            </div>
         </div>
-        <div class="input-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+    </div>
+    <!-- Sign Up Column -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5>Not a user? Sign Up!</h5>
+                <form action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Sign up</button>
+                </form>
+            </div>
         </div>
-        <button type="submit">Login</button>
-        {% if error_message %}
-            <p class="error">{{ error_message }}</p>
-        {% endif %}
-    </form>
-</div>
-
-<div class="sign-up-container">
-    <h5> Not an user? Sign Up!</h5>
-    <form action="{% url 'signup' %}">
-        {% csrf_token %}
-        <button type="submit">Sign up</button>
-    </form>
+    </div>
 </div>
 {% endblock %}
