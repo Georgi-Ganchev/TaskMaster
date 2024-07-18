@@ -11,15 +11,11 @@
             <strong>Given By:</strong> {{ task_info.task_giver }} on {{ task_info.date }}
         </div>
         <div class="mb-3">
-            <form method="POST" action="{% url 'complete' task_info.id %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-success">Complete Task</button>
-            </form>
-            <form method="POST" action="{% url 'edit_task' task_info.id %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-warning">Edit Task</button>
-            </form>
-            <a href="{% url 'home' %}" class="btn btn-secondary" style="display: inline;">Back to List</a>
+            <a href="{% url 'complete' task_info.id %}" class="btn btn-success">Edit Task</a>
+            {% if user.is_authenticated and user.user_type == '1' %}
+                <a href="{% url 'edit_task' task_info.id %}" class="btn btn-warning">Edit Task</a>
+            {% endif %}
+            <a href="{% url 'home' %}" class="btn btn-secondary">Back to List</a>
         </div>
     </div>
 </div>
